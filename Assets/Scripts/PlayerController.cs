@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public Camera camera;
     public float maxHeight;
     public Vector2 screenBounds, screenOrigin;
-    public TMP_Text scoreLabel;
+    public TMP_Text scoreLabel, finalScoreLabel, bestScoreLabel;
     public GameObject pausePanel, gameOverPanel;
 
     private Rigidbody2D rb;
@@ -91,6 +91,17 @@ public class PlayerController : MonoBehaviour
     private void Kill()
     {
         alive = false;
+        float highscore = PlayerPrefs.GetInt("best");
+        if (score > highscore)
+        {
+            highscore = score;
+            PlayerPrefs.SetInt("best", score);
+            bestScoreLabel.color = Color.green;
+        }
+        
+        finalScoreLabel.text = "score " + score.ToString();
+        bestScoreLabel.text = "best " + highscore.ToString();
+        
         gameOverPanel.SetActive(true);
     }
 
