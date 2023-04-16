@@ -29,8 +29,8 @@ public class PlatformSpawner : MonoBehaviour
         float x = Random.Range(minDistX, maxDistX);
         float y = Random.Range(minDistY, maxDistY);
 
-        Vector2 newPos = new Vector2(x + lastPlatPos.x, y + lastPlatPos.y);
-        var newPlatform = Instantiate(platform, newPos, Quaternion.identity);
+        Vector2 newPos = new Vector2(x, y + lastPlatPos.y);
+        var newPlatform = Instantiate(platform, newPos, Quaternion.identity, this.transform);
         lastPlatPos = newPos = newPos;
     }
 }

@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed;
     public float maxVel;
     public Camera camera;
+    public float maxHeight;
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
@@ -49,6 +50,15 @@ public class PlayerController : MonoBehaviour
         if (transform.position.x > screenBounds.x)
             transform.position = new Vector3(screenOrigin.x, transform.position.y, transform.position.z);
 
+        if (transform.position.y > maxHeight)
+            maxHeight = transform.position.y;
+
+        Vector3 camPos = camera.transform.position;
+        
+        if (maxHeight > camera.transform.position.y)
+            camera.transform.position = new Vector3(camPos.x,
+                Mathf.Lerp(camPos.y, maxHeight, 0.5f), camPos.z);
+        
         sr.flipX = !facingRight;
     }
 
