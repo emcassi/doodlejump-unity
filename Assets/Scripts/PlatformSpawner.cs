@@ -7,21 +7,29 @@ public class PlatformSpawner : MonoBehaviour
     public Vector2 lastPlatPos;
     public GameObject startingPlatform, platform;
     public float minDistX, minDistY, maxDistX, maxDistY;
+    public PlayerController player;
     
     // Start is called before the first frame update
     void Start()
     {
         lastPlatPos = startingPlatform.transform.position;
-        for (int i = 0; i < 10; i++)
+        SpawnPlatforms(25);
+    }
+
+    void Update()
+    {
+        if (player.screenBounds.y > lastPlatPos.y)
         {
-            SpawnPlatform();
+            SpawnPlatforms(25);
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    void SpawnPlatforms(int num)
     {
-        
+        for (var i = 0; i < num; i++)
+        {
+            SpawnPlatform();
+        }
     }
 
     void SpawnPlatform()
